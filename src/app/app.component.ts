@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import imageCompression from 'browser-image-compression';
-import { max } from 'rxjs';
+import Compressor from 'compressorjs';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +26,7 @@ export class AppComponent {
   originalPhoto: string | undefined;
   ngxImageCompressPhoto: string | undefined;
   browserImageCompressPhoto: string | undefined;
+  compressorJsPhoto: string | undefined;
   photoFilename: string | undefined;
   photoSize: number | undefined;
   presentationStatus: 'compressing' | 'original' | 'compress1' | 'compress2' | 'compress3' = 'original';
@@ -52,6 +53,7 @@ export class AppComponent {
     this.compressionCompleted = false;
     await this.compressWithNgxImageCompress();
     await this.compressWithBrowserImageCompression();
+    await this.compressWithCompressorJs();
     this.compressionCompleted = true;
     this.selectImage('compress1');
   }
@@ -87,8 +89,8 @@ export class AppComponent {
       maxWidthOrHeight: 720,
       useWebWorker: true,
       alwaysKeepResolution: true,
-      maxIteration: 5,
-      initialQUality: 0.8
+      //maxIteration: 5,
+      initialQuality: 0.8
     };
 
     try {
@@ -101,6 +103,27 @@ export class AppComponent {
     } catch (error) {
       console.error('Error during browser image compression:', error);
     }
+  }
+
+  async compressWithCompressorJs() {
+    if (!this.photo) return;
+
+    const blob = await fetch(this.photo).then(res => res.blob());
+
+    new Compressor(blob, {
+      quality: 0.8,
+      mimeType: 'image/png',
+      maxWidth: 1980,
+      maxHeight: 1980,
+      convertSize: 500000, // 500KB
+      success: async (compressedBlob) => {
+        const compressedImage = await this.blobToDataURL(compressedBlob);
+        this.compressorJsPhoto = compressedImage;
+      },
+      error: (err) => {
+        console.error('Error during Compressor.js compression:', err);
+      },
+    });
   }
 
   blobToDataURL(blob: Blob): Promise<string> {
@@ -151,8 +174,8 @@ export class AppComponent {
         this.presentationStatus = 'compress2';
         break;
       case 'compress3':
-        this.photo = this.browserImageCompressPhoto;
-        this.photoFilename = 'resultado-browser-image-compression.png';
+        this.photo = this.compressorJsPhoto;
+        this.photoFilename = 'resultado-compressorjs.png';
         this.presentationStatus = 'compress3';
         break;
       default:

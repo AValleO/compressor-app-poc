@@ -22,6 +22,7 @@
     "@capacitor/core": "^6.1.2",
     "@ionic/pwa-elements": "^3.3.0",
     "browser-image-compression": "^2.0.2",
+    "compressorjs": "^1.2.1",
     "ngx-image-compress": "^18.1.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
