@@ -1,0 +1,109 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 92vh;
+    padding: 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .container h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+  }
+  
+  .container button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background: linear-gradient(145deg, #6b8cff, #3a5eff);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .container button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container .card {
+    max-height: 60vh;
+    max-width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    position: relative;
+  }
+  
+  .container .card img {
+    max-width: 100%;
+    max-height: 50vh;
+    border-radius: 10px;
+  }
+  
+  .container .card .vignette {
+    position: absolute;
+    bottom: 15px;
+    width: -webkit-fill-available;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;    
+    margin-right: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: left;
+  }
+  
+  .container .logo {
+    position: absolute;
+    bottom: 20px;
+    max-width: 100px;
+    height: auto;
+    border: none;
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 768px) {
+    .container h1 {
+      font-size: 1.5em;
+    }
+  
+    .container button {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+  
+    .container .logo {
+      max-width: 80px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container h1 {
+      font-size: 1.2em;
+    }
+  
+    .container button {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+  
+    .container .logo {
+      max-width: 60px;
+    }
+  }
