@@ -66,6 +66,21 @@
         <img src="assets/loading.svg" alt="Loading">
         <div class="vignette">
           <h3>Comprimiendo Imagen</h3>
+          <p>
+            Plugin: ngx-image-compress: 
+            {{ngxImageCompressFinishTime !== undefined ? 'OK' : '...'}}
+            <i *ngIf="ngxImageCompressFinishTime !== undefined" class="fas fa-check" style="color: green;"></i>
+          </p>
+          <p>
+            Plugin: browser-image-compression: 
+            {{browserImageCompressFinishTime !== undefined ? 'OK' : '...'}}
+            <i *ngIf="browserImageCompressFinishTime !== undefined" class="fas fa-check" style="color: green;"></i>
+          </p>
+          <p>
+            Plugin: compressorjs: 
+            {{compressorJsFinishTime !== undefined ? 'OK' : '...'}}
+            <i *ngIf="compressorJsFinishTime !== undefined" class="fas fa-check" style="color: green;"></i>
+          </p>
         </div>
       </ng-container>
     </ng-container>

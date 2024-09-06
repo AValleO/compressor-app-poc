@@ -34,13 +34,34 @@ export class AppComponent {
   ngxImageCompressTime: number | undefined;
   browserImageCompressTime: number | undefined;
   compressorJsTime: number | undefined;
+  ngxImageCompressFinishTime: string | undefined;
+  browserImageCompressFinishTime: string | undefined;
+  compressorJsFinishTime: string | undefined;
 
   constructor(
     private imageCompress: NgxImageCompressService
   ) {}
 
-  async takePicture() {
+  resetAllVariables(){
+    this.photo = undefined;
+    this.originalPhoto = undefined;
+    this.ngxImageCompressPhoto = undefined;
+    this.browserImageCompressPhoto = undefined;
+    this.compressorJsPhoto = undefined;
+    this.photoFilename = undefined;
+    this.photoSize = undefined;
+    this.presentationStatus = 'original';
     this.compressionCompleted = false;
+    this.ngxImageCompressTime = undefined;
+    this.browserImageCompressTime = undefined;
+    this.compressorJsTime = undefined;
+    this.ngxImageCompressFinishTime = undefined;
+    this.browserImageCompressFinishTime = undefined;
+    this.compressorJsFinishTime = undefined;
+  }
+
+  async takePicture() {
+    this.resetAllVariables();
     const image = await Camera.getPhoto({
       quality: 100,
       allowEditing: false,
@@ -85,6 +106,7 @@ export class AppComponent {
     this.photoFilename = 'compressed_image.png';
     const endTime = performance.now();
     this.ngxImageCompressTime = endTime - startTime;
+    this.ngxImageCompressFinishTime = new Date().toLocaleTimeString();
   }
 
   async compressWithBrowserImageCompression() {
@@ -108,6 +130,7 @@ export class AppComponent {
       this.browserImageCompressPhoto = compressedImage;
       const endTime = performance.now();
       this.browserImageCompressTime = endTime - startTime;
+      this.browserImageCompressFinishTime = new Date().toLocaleTimeString();
     } catch (error) {
       console.error('Error during browser image compression:', error);
     }
@@ -130,6 +153,7 @@ export class AppComponent {
         this.compressorJsPhoto = compressedImage;
         const endTime = performance.now();
         this.compressorJsTime = endTime - startTime;
+        this.compressorJsFinishTime = new Date().toLocaleTimeString();
       },
       error: (err) => {
         console.error('Error during Compressor.js compression:', err);
