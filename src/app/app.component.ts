@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import imageCompression from 'browser-image-compression';
+import { max } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,8 +23,9 @@ import { NgxImageCompressService } from 'ngx-image-compress';
 export class AppComponent {
   title = 'compressor-app';
   photo: string | undefined;
-  ngxImageCompressPhoto: string | undefined;
   originalPhoto: string | undefined;
+  ngxImageCompressPhoto: string | undefined;
+  browserImageCompressPhoto: string | undefined;
   photoFilename: string | undefined;
   photoSize: number | undefined;
   presentationStatus: 'compressing' | 'original' | 'compress1' | 'compress2' | 'compress3' = 'original';
@@ -48,6 +51,7 @@ export class AppComponent {
     this.presentationStatus = 'compressing';
     this.compressionCompleted = false;
     await this.compressWithNgxImageCompress();
+    await this.compressWithBrowserImageCompression();
     this.compressionCompleted = true;
     this.selectImage('compress1');
   }
@@ -73,6 +77,39 @@ export class AppComponent {
     this.ngxImageCompressPhoto = compressedImage;
     this.photoSize = compressedSize;
     this.photoFilename = 'compressed_image.png';
+  }
+
+  async compressWithBrowserImageCompression() {
+    if (!this.photo) return;
+
+    const options = {
+      maxSizeMB: 0.5, // (500KB)
+      maxWidthOrHeight: 720,
+      useWebWorker: true,
+      alwaysKeepResolution: true,
+      maxIteration: 5,
+      initialQUality: 0.8
+    };
+
+    try {
+      const blob = await fetch(this.photo).then(res => res.blob());
+      const file = new File([blob], 'compressed_image.png', { type: 'image/png', lastModified: Date.now() });
+      const compressedBlob = await imageCompression(file, options);
+      const compressedImage = await this.blobToDataURL(compressedBlob);
+
+      this.browserImageCompressPhoto = compressedImage;
+    } catch (error) {
+      console.error('Error during browser image compression:', error);
+    }
+  }
+
+  blobToDataURL(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
   }
 
   handleClick(direction: 'left' | 'right') {
@@ -109,13 +146,13 @@ export class AppComponent {
         this.presentationStatus = 'compress1';
         break;
       case 'compress2':
-        this.photo = this.ngxImageCompressPhoto;
-        this.photoFilename = 'resultado-ngx-image-compress.png';
+        this.photo = this.browserImageCompressPhoto;
+        this.photoFilename = 'resultado-browser-image-compression.png';
         this.presentationStatus = 'compress2';
         break;
       case 'compress3':
-        this.photo = this.ngxImageCompressPhoto;
-        this.photoFilename = 'resultado-ngx-image-compress.png';
+        this.photo = this.browserImageCompressPhoto;
+        this.photoFilename = 'resultado-browser-image-compression.png';
         this.presentationStatus = 'compress3';
         break;
       default:
