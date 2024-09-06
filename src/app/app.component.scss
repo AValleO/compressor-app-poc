@@ -82,6 +82,44 @@
     text-align: left;
   }
   
+  main .card .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  main .card .button-group .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+  }
+  
+  main .card .button-group .btn.original {
+    background-color: #4caf50; /* Green */
+  }
+  
+  main .card .button-group .btn.compress1 {
+    background-color: #2196f3; /* Blue */
+  }
+  
+  main .card .button-group .btn.compress2 {
+    background-color: #ff9800; /* Orange */
+  }
+  
+  main .card .button-group .btn.compress3 {
+    background-color: #f44336; /* Red */
+  }
+  
+  main .card .button-group .btn:hover {
+    opacity: 0.8;
+  }
+  
   .logo {
     position: absolute;
     bottom: 20px;

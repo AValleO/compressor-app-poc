@@ -14,7 +14,7 @@ import { Camera, CameraResultType } from '@capacitor/camera';
     ReactiveFormsModule
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'compressor-app';
@@ -37,7 +37,26 @@ export class AppComponent {
   async compressPicture() {
     this.presentationStatus = 'compressing';
     setTimeout(() => {
-      this.presentationStatus = 'original';    
+      this.presentationStatus = 'pickOption';    
     }, 1000);
+  }
+
+  selectImage(type: string) {
+    switch (type) {
+      case 'original':
+        this.presentationStatus = 'original';
+        break;
+      case 'compress1':
+        this.presentationStatus = 'compressed1';
+        break;
+      case 'compress2':
+        this.presentationStatus = 'compressed2';
+        break;
+      case 'compress3':
+        this.presentationStatus = 'compressed3';
+        break;
+      default:
+        break;
+    }
   }
 }

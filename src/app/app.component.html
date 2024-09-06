@@ -5,30 +5,35 @@
   </header>
   <main>
     <button *ngIf="!photo" (click)="takePicture()">Cargar Fotografía</button>
-      @switch (presentationStatus) {
-        @case ('original') {
-          <button *ngIf="photo" (click)="compressPicture()">Comprimir Fotografía</button>
-          <div *ngIf="photo" class="card">
-            <img [src]="photo" alt="Captured Image">
-            <div class="vignette">
-              <p>Imagen Original</p>
-              <p>Tamaño: {{ photoSize }} KB</p>
-              <!-- Add other relevant properties here -->
-            </div>
-          </div>
-        }
-        @case('compressing'){
-          <img src="assets/loading.svg" alt="Loading">
+    <ng-container [ngSwitch]="presentationStatus">
+      <ng-container *ngSwitchCase="'original'">
+        <button *ngIf="photo" (click)="compressPicture()">Comprimir Fotografía</button>
+        <div *ngIf="photo" class="card">
+          <img [src]="photo" alt="Captured Image">
           <div class="vignette">
-            <h2>Comprimiendo Imagen</h2>
+            <p>Imagen Original</p>
+            <p>Tamaño: {{ photoSize }} KB</p>
+            <!-- Add other relevant properties here -->
           </div>
-        }
-        @case ('pickOption') {
-          <div *ngIf="photo" class="card">
-            
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'compressing'">
+        <img src="assets/loading.svg" alt="Loading">
+        <div class="vignette">
+          <h2>Comprimiendo Imagen</h2>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'pickOption'">
+        <div *ngIf="photo" class="card">
+          <div class="button-group">
+            <button class="btn original" (click)="selectImage('original')">Original</button>
+            <button class="btn compress1" (click)="selectImage('compress1')">Compress 1</button>
+            <button class="btn compress2" (click)="selectImage('compress2')">Compress 2</button>
+            <button class="btn compress3" (click)="selectImage('compress3')">Compress 3</button>
           </div>
-        }
-      }
+        </div>
+      </ng-container>
+    </ng-container>
   </main>
   <img class="logo" src="assets/logo.png" alt="Logo">
 </div>
