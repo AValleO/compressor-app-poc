@@ -125,10 +125,11 @@ export class AppComponent {
     const startTime = performance.now();
     const options = {
       maxSizeMB: 0.5, // (500KB)
-      maxWidthOrHeight: 720,
+      maxWidthOrHeight: 540,
       useWebWorker: true,
-      alwaysKeepResolution: true,
-      initialQuality: 0.8
+      //alwaysKeepResolution: true,
+      maxIteration: 5,
+      initialQuality: 0.9
     };
 
     try {
