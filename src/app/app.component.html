@@ -10,11 +10,50 @@
       <ng-container *ngSwitchCase="'original'">
         <button *ngIf="photo && !compressionCompleted" (click)="compressPicture()">Comprimir Imagen</button>
         <div *ngIf="photo" class="card">
-          <i *ngIf="compressionCompleted" class="fas fa-arrow-left left-arrow"></i>
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-left left-arrow" (click)="handleClick('left')"></i>
           <img [src]="photo" alt="Captured Image">
-          <i *ngIf="compressionCompleted" class="fas fa-arrow-right right-arrow"></i>
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-right right-arrow" (click)="handleClick('right')"></i>
           <div class="vignette">
             <p>Imagen Original</p>
+            <p>Tamaño: {{ photoSize }} KB</p>
+            <!-- Add other relevant properties here -->
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'compress1'">
+        <button *ngIf="photo && !compressionCompleted" (click)="compressPicture()">Comprimir Imagen</button>
+        <div *ngIf="photo" class="card">
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-left left-arrow" (click)="handleClick('left')"></i>
+          <img [src]="photo" alt="Captured Image">
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-right right-arrow" (click)="handleClick('right')"></i>
+          <div class="vignette">
+            <p>Plugin: ngx-image-compression</p>
+            <p>Tamaño: {{ photoSize }} KB</p>
+            <!-- Add other relevant properties here -->
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'compress2'">
+        <button *ngIf="photo && !compressionCompleted" (click)="compressPicture()">Comprimir Imagen</button>
+        <div *ngIf="photo" class="card">
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-left left-arrow" (click)="handleClick('left')"></i>
+          <img [src]="photo" alt="Captured Image">
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-right right-arrow" (click)="handleClick('right')"></i>
+          <div class="vignette">
+            <p>Plugin: ngx-image-compression</p>
+            <p>Tamaño: {{ photoSize }} KB</p>
+            <!-- Add other relevant properties here -->
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="'compress3'">
+        <button *ngIf="photo && !compressionCompleted" (click)="compressPicture()">Comprimir Imagen</button>
+        <div *ngIf="photo" class="card">
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-left left-arrow" (click)="handleClick('left')"></i>
+          <img [src]="photo" alt="Captured Image">
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-right right-arrow" (click)="handleClick('right')"></i>
+          <div class="vignette">
+            <p>Plugin: ngx-image-compression</p>
             <p>Tamaño: {{ photoSize }} KB</p>
             <!-- Add other relevant properties here -->
           </div>
