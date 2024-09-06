@@ -23,16 +23,6 @@
           <h2>Comprimiendo Imagen</h2>
         </div>
       </ng-container>
-      <ng-container *ngSwitchCase="'pickOption'">
-        <div *ngIf="photo" class="card">
-          <div class="button-group">
-            <button class="btn original" (click)="selectImage('original')">Original</button>
-            <button class="btn compress1" (click)="selectImage('compress1')">Compress 1</button>
-            <button class="btn compress2" (click)="selectImage('compress2')">Compress 2</button>
-            <button class="btn compress3" (click)="selectImage('compress3')">Compress 3</button>
-          </div>
-        </div>
-      </ng-container>
     </ng-container>
   </main>
   <img class="logo" src="assets/logo.png" alt="Logo">

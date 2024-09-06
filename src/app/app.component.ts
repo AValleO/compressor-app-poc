@@ -21,7 +21,8 @@ export class AppComponent {
   photo: string | undefined;
   photoFilename: string | undefined;
   photoSize: number | undefined;
-  presentationStatus: 'compressing' | 'original' | 'pickOption' | 'compressed1' | 'compressed2' | 'compressed3' = 'original';
+  presentationStatus: 'compressing' | 'original' | 'compressed1' | 'compressed2' | 'compressed3' = 'original';
+  compressionCompleted: boolean = false;
 
   async takePicture() {
     const image = await Camera.getPhoto({
@@ -36,8 +37,10 @@ export class AppComponent {
 
   async compressPicture() {
     this.presentationStatus = 'compressing';
+    this.compressionCompleted = false;
     setTimeout(() => {
-      this.presentationStatus = 'pickOption';    
+      this.presentationStatus = 'original';    
+      this.compressionCompleted = true;
     }, 1000);
   }
 
