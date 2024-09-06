@@ -31,6 +31,9 @@ export class AppComponent {
   photoSize: number | undefined;
   presentationStatus: 'compressing' | 'original' | 'compress1' | 'compress2' | 'compress3' = 'original';
   compressionCompleted: boolean = false;
+  ngxImageCompressTime: number | undefined;
+  browserImageCompressTime: number | undefined;
+  compressorJsTime: number | undefined;
 
   constructor(
     private imageCompress: NgxImageCompressService
@@ -59,6 +62,7 @@ export class AppComponent {
   }
 
   async compressWithNgxImageCompress() {
+    const startTime = performance.now();
     let compressedImage: string | undefined = this.photo;
     let compressedSize = this.photoSize || 0;
     let quality = 50; // Initial quality
@@ -79,17 +83,19 @@ export class AppComponent {
     this.ngxImageCompressPhoto = compressedImage;
     this.photoSize = compressedSize;
     this.photoFilename = 'compressed_image.png';
+    const endTime = performance.now();
+    this.ngxImageCompressTime = endTime - startTime;
   }
 
   async compressWithBrowserImageCompression() {
     if (!this.photo) return;
 
+    const startTime = performance.now();
     const options = {
       maxSizeMB: 0.5, // (500KB)
       maxWidthOrHeight: 720,
       useWebWorker: true,
       alwaysKeepResolution: true,
-      //maxIteration: 5,
       initialQuality: 0.8
     };
 
@@ -100,6 +106,8 @@ export class AppComponent {
       const compressedImage = await this.blobToDataURL(compressedBlob);
 
       this.browserImageCompressPhoto = compressedImage;
+      const endTime = performance.now();
+      this.browserImageCompressTime = endTime - startTime;
     } catch (error) {
       console.error('Error during browser image compression:', error);
     }
@@ -108,6 +116,7 @@ export class AppComponent {
   async compressWithCompressorJs() {
     if (!this.photo) return;
 
+    const startTime = performance.now();
     const blob = await fetch(this.photo).then(res => res.blob());
 
     new Compressor(blob, {
@@ -119,6 +128,8 @@ export class AppComponent {
       success: async (compressedBlob) => {
         const compressedImage = await this.blobToDataURL(compressedBlob);
         this.compressorJsPhoto = compressedImage;
+        const endTime = performance.now();
+        this.compressorJsTime = endTime - startTime;
       },
       error: (err) => {
         console.error('Error during Compressor.js compression:', err);

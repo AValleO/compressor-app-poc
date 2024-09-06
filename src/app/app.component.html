@@ -29,6 +29,7 @@
           <div class="vignette">
             <p>Plugin: ngx-image-compress</p>
             <p>Tamaño: {{ photoSize }} KB</p>
+            <p>Performance: {{ngxImageCompressTime | number:'1.0-0'}} ms</p>
             <!-- Add other relevant properties here -->
           </div>
         </div>
@@ -42,6 +43,7 @@
           <div class="vignette">
             <p>Plugin: browser-image-compression</p>
             <p>Tamaño: {{ photoSize }} KB</p>
+            <p>Performance: {{browserImageCompressTime | number:'1.0-0'}} ms</p>
             <!-- Add other relevant properties here -->
           </div>
         </div>
@@ -55,6 +57,7 @@
           <div class="vignette">
             <p>Plugin: compressorjs</p>
             <p>Tamaño: {{ photoSize }} KB</p>
+            <p>Performance: {{compressorJsTime | number:'1.0-0'}} ms</p>
             <!-- Add other relevant properties here -->
           </div>
         </div>
