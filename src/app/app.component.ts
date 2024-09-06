@@ -29,6 +29,7 @@ export class AppComponent {
   compressorJsPhoto: string | undefined;
   photoFilename: string | undefined;
   photoSize: number | undefined;
+  originalPhotoSize: number | undefined;
   presentationStatus: 'compressing' | 'original' | 'compress1' | 'compress2' | 'compress3' = 'original';
   compressionCompleted: boolean = false;
   ngxImageCompressTime: number | undefined;
@@ -37,6 +38,9 @@ export class AppComponent {
   ngxImageCompressFinishTime: string | undefined;
   browserImageCompressFinishTime: string | undefined;
   compressorJsFinishTime: string | undefined;
+  ngxImageCompressRatio: number | undefined;
+  browserImageCompressRatio: number | undefined;
+  compressorJsRatio: number | undefined;
 
   constructor(
     private imageCompress: NgxImageCompressService
@@ -50,6 +54,7 @@ export class AppComponent {
     this.compressorJsPhoto = undefined;
     this.photoFilename = undefined;
     this.photoSize = undefined;
+    this.originalPhotoSize = undefined;
     this.presentationStatus = 'original';
     this.compressionCompleted = false;
     this.ngxImageCompressTime = undefined;
@@ -58,6 +63,9 @@ export class AppComponent {
     this.ngxImageCompressFinishTime = undefined;
     this.browserImageCompressFinishTime = undefined;
     this.compressorJsFinishTime = undefined;
+    this.ngxImageCompressRatio = undefined;
+    this.browserImageCompressRatio = undefined;
+    this.compressorJsRatio = undefined;
   }
 
   async takePicture() {
@@ -68,6 +76,7 @@ export class AppComponent {
       resultType: CameraResultType.DataUrl
     });    
     this.originalPhoto = image.dataUrl;
+    this.originalPhotoSize = image.dataUrl ? Math.round((image.dataUrl.length * (3/4)) / 1024) : 0; // Calculate original photo size in KB
     this.selectImage('original');
   }
 
@@ -107,6 +116,7 @@ export class AppComponent {
     const endTime = performance.now();
     this.ngxImageCompressTime = endTime - startTime;
     this.ngxImageCompressFinishTime = new Date().toLocaleTimeString();
+    this.ngxImageCompressRatio = this.originalPhotoSize ? compressedSize / this.originalPhotoSize : undefined;
   }
 
   async compressWithBrowserImageCompression() {
@@ -131,6 +141,8 @@ export class AppComponent {
       const endTime = performance.now();
       this.browserImageCompressTime = endTime - startTime;
       this.browserImageCompressFinishTime = new Date().toLocaleTimeString();
+      const compressedSize = Math.round((compressedImage.length * (3/4)) / 1024);
+      this.browserImageCompressRatio = this.originalPhotoSize ? compressedSize / this.originalPhotoSize : undefined;
     } catch (error) {
       console.error('Error during browser image compression:', error);
     }
@@ -154,6 +166,8 @@ export class AppComponent {
         const endTime = performance.now();
         this.compressorJsTime = endTime - startTime;
         this.compressorJsFinishTime = new Date().toLocaleTimeString();
+        const compressedSize = Math.round((compressedImage.length * (3/4)) / 1024);
+        this.compressorJsRatio = this.originalPhotoSize ? compressedSize / this.originalPhotoSize : undefined;
       },
       error: (err) => {
         console.error('Error during Compressor.js compression:', err);

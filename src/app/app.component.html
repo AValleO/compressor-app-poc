@@ -30,6 +30,7 @@
             <p>Plugin: ngx-image-compress</p>
             <p>Tamaño: {{ photoSize }} KB</p>
             <p>Performance: {{ngxImageCompressTime | number:'1.0-0'}} ms</p>
+            <p>Compression Ratio: {{ ngxImageCompressRatio | number:'1.2-2' }}</p>
             <!-- Add other relevant properties here -->
           </div>
         </div>
@@ -44,6 +45,7 @@
             <p>Plugin: browser-image-compression</p>
             <p>Tamaño: {{ photoSize }} KB</p>
             <p>Performance: {{browserImageCompressTime | number:'1.0-0'}} ms</p>
+            <p>Compression Ratio: {{ browserImageCompressRatio | number:'1.2-2' }}</p>
             <!-- Add other relevant properties here -->
           </div>
         </div>
@@ -58,6 +60,7 @@
             <p>Plugin: compressorjs</p>
             <p>Tamaño: {{ photoSize }} KB</p>
             <p>Performance: {{compressorJsTime | number:'1.0-0'}} ms</p>
+            <p>Compression Ratio: {{ compressorJsRatio | number:'1.2-2' }}</p>
             <!-- Add other relevant properties here -->
           </div>
         </div>
