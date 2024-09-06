@@ -1,15 +1,18 @@
 <div class="container">
   <header>
     <h1>PRONACA - POC</h1>
-    <h2>Compresión de Imágenes</h2>
+    <h2>Compresión de Imágenes</h2>    
+    <h3 *ngIf="compressionCompleted">Compresión Exitosa</h3>
   </header>
   <main>
-    <button *ngIf="!photo" (click)="takePicture()">Cargar Fotografía</button>
+    <button *ngIf="!photo || compressionCompleted" (click)="takePicture()">Nueva Imagen</button>
     <ng-container [ngSwitch]="presentationStatus">
       <ng-container *ngSwitchCase="'original'">
-        <button *ngIf="photo" (click)="compressPicture()">Comprimir Fotografía</button>
+        <button *ngIf="photo && !compressionCompleted" (click)="compressPicture()">Comprimir Imagen</button>
         <div *ngIf="photo" class="card">
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-left left-arrow"></i>
           <img [src]="photo" alt="Captured Image">
+          <i *ngIf="compressionCompleted" class="fas fa-arrow-right right-arrow"></i>
           <div class="vignette">
             <p>Imagen Original</p>
             <p>Tamaño: {{ photoSize }} KB</p>

@@ -21,6 +21,18 @@
     font-size: 2em;
   }
   
+  header h2 {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  header h3 {
+    font-size: 1.2em;
+    margin: 5px 0;
+    color: #4caf50; /* Green color to indicate success */
+  }
+  
   main {
     display: flex;
     flex-direction: column;
@@ -128,11 +140,25 @@
     border: none;
   }
   
-  /* Styling for h2 */
-  h2 {
-    font-size: 1.5em;
-    margin: 10px 0;
-    color: #333;
+  /* Arrow icon styles */
+  .left-arrow, .right-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    color: white;
+    background-color: #2196f3; /* Blue background */
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .left-arrow {
+    left: 20px;
+  }
+  
+  .right-arrow {
+    right: 20px;
   }
   
   /* Media queries for responsiveness */
@@ -150,8 +176,17 @@
       max-width: 80px;
     }
   
-    h2 {
+    header h2 {
       font-size: 1.3em;
+    }
+  
+    header h3 {
+      font-size: 1.1em;
+    }
+  
+    .left-arrow, .right-arrow {
+      font-size: 1.5em;
+      padding: 8px;
     }
   }
   
@@ -169,7 +204,16 @@
       max-width: 60px;
     }
   
-    h2 {
+    header h2 {
       font-size: 1.1em;
+    }
+  
+    header h3 {
+      font-size: 1em;
+    }
+  
+    .left-arrow, .right-arrow {
+      font-size: 1.2em;
+      padding: 6px;
     }
   }

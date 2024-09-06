@@ -25,6 +25,7 @@ export class AppComponent {
   compressionCompleted: boolean = false;
 
   async takePicture() {
+    this.compressionCompleted = false;
     const image = await Camera.getPhoto({
       quality: 100,
       allowEditing: false,
