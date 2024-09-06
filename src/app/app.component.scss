@@ -39,7 +39,7 @@
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-
+  
     h3 {
       color: #4CAF50; // Example color
       font-size: 1.5em; // Example font size
@@ -99,6 +99,10 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     text-align: left;
+  
+    p {
+      padding: 0px 0; // Reduced padding for <p> elements
+    }
   }
   
   main .card .button-group {
