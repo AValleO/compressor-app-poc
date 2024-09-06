@@ -42,7 +42,7 @@
   
     h3 {
       color: #4CAF50; // Example color
-      font-size: 1.5em; // Example font size
+      font-size: 1.2em; // Example font size
       text-align: center; // Example text alignment
       margin-top: 10px; // Example margin
     }
@@ -165,11 +165,11 @@
   }
   
   .left-arrow {
-    left: 20px;
+    left: -20px;
   }
   
   .right-arrow {
-    right: 20px;
+    right: -20px;
   }
   
   /* Media queries for responsiveness */

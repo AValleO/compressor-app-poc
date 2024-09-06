@@ -1,7 +1,7 @@
 <div class="container">
   <header>
-    <h1>PRONACA - POC</h1>
-    <h2>Compresión de Imágenes</h2>    
+    <h1>PRONACA</h1>
+    <h2>POC - Compresión de Imágenes</h2>    
   </header>
   <main>
     <button *ngIf="!photo || compressionCompleted" (click)="takePicture()">Nueva Imagen</button>
@@ -62,7 +62,7 @@
       <ng-container *ngSwitchCase="'compressing'">
         <img src="assets/loading.svg" alt="Loading">
         <div class="vignette">
-          <h2>Comprimiendo Imagen</h2>
+          <h3>Comprimiendo Imagen</h3>
         </div>
       </ng-container>
     </ng-container>
