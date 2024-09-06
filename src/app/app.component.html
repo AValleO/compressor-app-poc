@@ -1,13 +1,34 @@
 <div class="container">
-  <h1>Compresión de Imágenes</h1>
-  <button (click)="takePicture()">Cargar Fotografía</button>
-  <div *ngIf="photo" class="card">
-    <img [src]="photo" alt="Captured Image">
-    <div class="vignette">
-      <p>Imagen Original</p>
-      <p>Tamaño: {{ photoSize }} KB</p>
-      <!-- Add other relevant properties here -->
-    </div>
-  </div>
+  <header>
+    <h1>PRONACA - POC</h1>
+    <h2>Compresión de Imágenes</h2>
+  </header>
+  <main>
+    <button *ngIf="!photo" (click)="takePicture()">Cargar Fotografía</button>
+      @switch (presentationStatus) {
+        @case ('original') {
+          <button *ngIf="photo" (click)="compressPicture()">Comprimir Fotografía</button>
+          <div *ngIf="photo" class="card">
+            <img [src]="photo" alt="Captured Image">
+            <div class="vignette">
+              <p>Imagen Original</p>
+              <p>Tamaño: {{ photoSize }} KB</p>
+              <!-- Add other relevant properties here -->
+            </div>
+          </div>
+        }
+        @case('compressing'){
+          <img src="assets/loading.svg" alt="Loading">
+          <div class="vignette">
+            <h2>Comprimiendo Imagen</h2>
+          </div>
+        }
+        @case ('pickOption') {
+          <div *ngIf="photo" class="card">
+            
+          </div>
+        }
+      }
+  </main>
   <img class="logo" src="assets/logo.png" alt="Logo">
 </div>
